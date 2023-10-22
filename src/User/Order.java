@@ -1,24 +1,27 @@
 package User;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import Menu.MenuItem;
+
 public class Order {
-    private int orderId;
-    private Date orderDate;
-    private List<MenuItem> orderedItems;
-    private double totalCost;
+    private final int orderId;
+    private final LocalDateTime orderDate;
+    private final List<MenuItem> orderedItems;
+    private final double totalCost;
 
     public Order(int orderId, List<MenuItem> orderedItems, double totalCost) {
         this.orderId = orderId;
-        this.orderDate = new Date();
-        this.orderedItems = orderedItems;
+        this.orderDate = LocalDateTime.now();
+        this.orderedItems = List.copyOf(orderedItems);
         this.totalCost = totalCost;
     }
+
     public int getOrderId() {
         return orderId;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 

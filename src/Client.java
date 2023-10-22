@@ -3,11 +3,12 @@ import Customization.*;
 import Extras.*;
 import Menu.*;
 import User.*;
+import Payment.*;
+
 public class Client {
     public static void main(String[] args) {
         MenuItem omelette = new Omelette();
         MenuItem pancakes = new Pancakes();
-
 
         CustomizationStrategy toppingCustomization = new ToppingCustomization("Cheese");
         CustomizationStrategy beverageCustomization = new BeverageCustomization("Coffee");
@@ -17,10 +18,21 @@ public class Client {
         MenuItem pancakesWithSyrup = new Syrup(pancakes);
         MenuItem omeletteWithButter = new Butter(omelette);
 
-
         Cart cart = Cart.getInstance();
         cart.addItem(pancakesWithSyrup);
         cart.addItem(omeletteWithButter);
+
+
+        PaymentProcessor paymentProcessor = new PaymentGatewayAdapter(new Payment.PaymentGateway());
+
+
+        for (MenuItem item : cart.getItems()) {
+            item.processPayment(paymentProcessor);
+        }
+
+        Cart cart1 = Cart.getInstance();
+        cart1.addItem(pancakesWithSyrup);
+        cart1.removeItem(omeletteWithButter);
 
         System.out.println("Items in the Cart:");
         for (MenuItem item : cart.getItems()) {
@@ -32,7 +44,6 @@ public class Client {
         User user = new User("example", "123");
         Order order = new Order(1, cart.getItems(), totalCost);
         user.addOrderToHistory(order);
-
 
         System.out.println("Order History: " + user.getUsername());
         for (Order userOrder : user.getOrderHistory()) {

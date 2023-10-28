@@ -4,28 +4,36 @@ import Extras.*;
 import Menu.*;
 import User.*;
 import Payment.*;
+import Menu.factories.*;
 
 public class Client {
     public static void main(String[] args) {
-        MenuItem omelette = new Omelette();
-        MenuItem pancakes = new Pancakes();
+        // Create the item factories
+        MenuItemFactory menuItemFactory = new MenuItemFactory();
+        BreakfastItemFactory breakfastItemFactory = new BreakfastItemFactory();
 
+        MenuItem omelette = menuItemFactory.createMenuItem("Omelette");
+        MenuItem pancakes = menuItemFactory.createMenuItem("Pancakes");
+
+        // Customize the items
         CustomizationStrategy toppingCustomization = new ToppingCustomization("Cheese");
         CustomizationStrategy beverageCustomization = new BeverageCustomization("Coffee");
         toppingCustomization.customize(omelette);
         beverageCustomization.customize(pancakes);
 
+        // Create customized items with extras
         MenuItem pancakesWithSyrup = new Syrup(pancakes);
         MenuItem omeletteWithButter = new Butter(omelette);
 
+        // Create a shopping cart
         Cart cart = Cart.getInstance();
         cart.addItem(pancakesWithSyrup);
         cart.addItem(omeletteWithButter);
 
-
+        // Create a payment processor
         PaymentProcessor paymentProcessor = new PaymentGatewayAdapter(new Payment.PaymentGateway());
 
-
+        // Process payments for items in the cart
         for (MenuItem item : cart.getItems()) {
             item.processPayment(paymentProcessor);
         }

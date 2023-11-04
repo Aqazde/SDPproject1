@@ -1,5 +1,6 @@
 package Extras;
 import Menu.MenuItem;
+import Payment.PaymentProcessor;
 public abstract class Extra implements MenuItem{
     protected MenuItem menuItem;
 
@@ -19,4 +20,10 @@ public abstract class Extra implements MenuItem{
 
     protected abstract String getExtraName();
     protected abstract double getExtraPrice();
+    @Override
+    public void processPayment(PaymentProcessor paymentProcessor) {
+        menuItem.processPayment(paymentProcessor);
+        double price = getPrice();
+        paymentProcessor.processPayment(price);
+    }
 }

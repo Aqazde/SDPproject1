@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Cart implements OrderSubject {
     private static Cart instance;
-    private List<MenuItem> items;
-    private List<OrderObserver> observers;
+    private final List<MenuItem> items;
+    private final List<OrderObserver> observers;
 
     private Cart() {
         items = new ArrayList<>();

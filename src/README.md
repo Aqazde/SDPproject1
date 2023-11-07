@@ -11,6 +11,7 @@
     - [Decorator Pattern](#decorator-pattern)
     - [Strategy Pattern](#strategy-pattern)
     - [Observer Pattern](#observer-pattern)
+- [UML Diagram](#uml-diagram-of-project)
 ## Project Description
 
 The Breakfast and Lunch Order Management System is a Java-based application designed to efficiently manage orders for breakfast and lunch items. This system provides a user-friendly interface for customers to select, customize, and place their meal orders.
@@ -70,3 +71,5 @@ Description: The Observer Pattern is used to implement a notification system in 
 
 Usage: The Observer Pattern establishes a one-to-many relationship between an object (the subject) and its dependents (the observers). This pattern provides a flexible way to define a subscription mechanism to notify multiple objects about changes or events.
 
+## UML Diagram of Project
+![UML Diagram](UMLdiagram.jpg)

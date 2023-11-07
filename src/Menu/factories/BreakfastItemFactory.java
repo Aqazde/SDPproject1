@@ -1,9 +1,9 @@
 package Menu.factories;
 
-import Menu.BreakfastItem;
-import Menu.Cereal;
-import Menu.Omelette;
-import Menu.Pancakes;
+import Menu.Breakfast.BreakfastItem;
+import Menu.Breakfast.Cereal;
+import Menu.Breakfast.Omelette;
+import Menu.Breakfast.Pancakes;
 
 public class BreakfastItemFactory {
     public BreakfastItem createBreakfastItem(String type) {

@@ -1,5 +1,6 @@
-package Menu;
+package Menu.Breakfast;
 
+import Menu.MenuItem;
 import Payment.PaymentProcessor;
 
 public abstract class BreakfastItem implements MenuItem {

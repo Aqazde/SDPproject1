@@ -6,6 +6,7 @@ import Menu.Breakfast.*;
 import Menu.factories.*;
 import User.*;
 import Payment.*;
+import Observer.*;
 
 public class Client {
     public static void main(String[] args) {
@@ -44,19 +45,19 @@ public class Client {
         cart.addItem(omeletteWithButter);
         cart.addItem(salad);
         cart.addItem(pasta);
-
-        // Create a payment processor
-        PaymentProcessor paymentProcessor = new PaymentGatewayAdapter(new Payment.PaymentGateway());
-
         // Process payments for items in the cart
+        PaymentProcessor paymentProcessor = new PaymentGatewayAdapter(new Payment.PaymentGateway());
         for (MenuItem item : cart.getItems()) {
             item.processPayment(paymentProcessor);
         }
 
-        Cart cart1 = Cart.getInstance();
-        cart1.addItem(pancakesWithSyrup);
-        cart1.removeItem(omeletteWithButter);
+        // Create and register observers
+        EmailNotificationObserver emailObserver = new EmailNotificationObserver();
+        SMSNotificationObserver smsObserver = new SMSNotificationObserver();
+        cart.registerObserver(emailObserver);
+        cart.registerObserver(smsObserver);
 
+        // Place the order
         System.out.println("Items in the Cart:");
         for (MenuItem item : cart.getItems()) {
             System.out.println(item.getName() + " - $" + item.getPrice());
@@ -79,5 +80,7 @@ public class Client {
             }
             System.out.println();
         }
+        // Notify observers
+        cart.notifyObservers();
     }
 }

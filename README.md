@@ -72,4 +72,4 @@ Description: The Observer Pattern is used to implement a notification system in 
 Usage: The Observer Pattern establishes a one-to-many relationship between an object (the subject) and its dependents (the observers). This pattern provides a flexible way to define a subscription mechanism to notify multiple objects about changes or events.
 
 ## UML Diagram of Project
-![UML Diagram](UMLdiagram.jpg)
+![UML Diagram](src/UMLdiagram.jpg)

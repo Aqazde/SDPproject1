@@ -13,6 +13,6 @@ public class SMSNotificationObserver implements OrderObserver {
         for (MenuItem item : orderedItems) {
             System.out.println(item.getName() + " - $" + item.getPrice());
         }
-        System.out.println("Total Cost: $" + totalCost);
+        System.out.println("Total Cost: $" + totalCost +"\n");
     }
 }

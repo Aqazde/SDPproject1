@@ -7,7 +7,7 @@ import Menu.factories.*;
 import User.*;
 import Payment.*;
 import Observer.*;
-
+import java.util.List;
 public class Client {
     public static void main(String[] args) {
         // Create the item factories
@@ -29,7 +29,7 @@ public class Client {
 
         // Create customized items with Extras
         MenuItem pancakesWithSyrup = new Syrup(pancakes);
-        MenuItem omeletteWithButter = new Butter(omelette);
+        MenuItem omeletteWithButter = new Butter(pancakesWithSyrup);
 
         // Create Lunch items
         MenuItem salad = lunchItemFactory.createLunchItem("Salad");
@@ -52,17 +52,23 @@ public class Client {
         }
 
         // Create and register observers
+        ManagerObserver managerObserver = new ManagerObserver();
         EmailNotificationObserver emailObserver = new EmailNotificationObserver();
         SMSNotificationObserver smsObserver = new SMSNotificationObserver();
-        cart.registerObserver(emailObserver);
-        cart.registerObserver(smsObserver);
+
+        managerObserver.registerObserver(emailObserver);
+        managerObserver.registerObserver(smsObserver);
+
+        // Notify observers
+        List<MenuItem> cartItems = cart.getItems();
+        double totalCost = cart.getTotalCost();
+        managerObserver.notifyObservers(1, cartItems, totalCost);
 
         // Place the order
         System.out.println("Items in the Cart:");
         for (MenuItem item : cart.getItems()) {
             System.out.println(item.getName() + " - $" + item.getPrice());
         }
-        double totalCost = cart.getTotalCost();
         System.out.println("Total Cost: $" + totalCost);
 
         User user = new User("example", "123");
@@ -80,7 +86,5 @@ public class Client {
             }
             System.out.println();
         }
-        // Notify observers
-        cart.notifyObservers();
     }
 }
